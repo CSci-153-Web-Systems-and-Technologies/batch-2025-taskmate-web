@@ -1,8 +1,9 @@
 // app/auth/page.tsx
 "use client";
 import React, { useState } from 'react';
-import { supabase } from '@/lib/supabase/client'; // Import client-side instance
-import AuthForm from '@/components/auth-form/page'; // Assuming your AuthForm is nested
+import { supabase } from '@/lib/supabase/client';
+import AuthForm from '@/components/auth-form/page'; 
+import { useRouter } from 'next/navigation';
 
 const handleAuthSubmission = async (formData: any, registering: boolean) => {
     // Basic Supabase authentication logic
@@ -14,7 +15,7 @@ const handleAuthSubmission = async (formData: any, registering: boolean) => {
                 data: {
                     full_name: formData.fullName, 
                     username: formData.username,
-                    role: formData.role, // 'customer' or 'provider'
+                    role: formData.role,
                 }
             }
         });
@@ -33,7 +34,6 @@ const handleAuthSubmission = async (formData: any, registering: boolean) => {
         if (error) {
             alert(`Login Error: ${error.message}`);
         } else {
-            // Redirect to dashboard on successful login
             window.location.href = '/dashboard'; 
         }
     }
