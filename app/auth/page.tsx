@@ -1,26 +1,49 @@
 // app/auth/page.tsx
 "use client";
 import React, { useState } from 'react';
-import AuthForm from '@/components/auth-form/page'; // Assuming you put the component in components/auth-form.tsx
+import { supabase } from '@/lib/supabase/client';
+import AuthForm from '@/components/auth-form/page'; 
+import { useRouter } from 'next/navigation';
+
+const handleAuthSubmission = async (formData: any, registering: boolean) => {
+    // Basic Supabase authentication logic
+    if (registering) {
+        const { error } = await supabase.auth.signUp({
+            email: formData.email,
+            password: formData.password,
+            options: {
+                data: {
+                    full_name: formData.fullName, 
+                    username: formData.username,
+                    role: formData.role,
+                }
+            }
+        });
+
+        if (error) {
+            alert(`Sign Up Error: ${error.message}`);
+        } else {
+            alert('Success! Check your email to confirm your account.');
+        }
+    } else {
+        const { error } = await supabase.auth.signInWithPassword({
+            email: formData.email,
+            password: formData.password,
+        });
+
+        if (error) {
+            alert(`Login Error: ${error.message}`);
+        } else {
+            window.location.href = '/dashboard'; 
+        }
+    }
+};
 
 export default function AuthPage() {
-    // This state controls which view the AuthForm starts on
     const [isRegister, setIsRegister] = useState(false); 
-
-    const handleAuthSubmission = (formData: any, registering: boolean) => {
-        console.log('Form Data:', formData);
-        if (registering) {
-            console.log('Attempting Supabase Sign Up...');
-            // Implement Supabase sign-up here
-        } else {
-            console.log('Attempting Supabase Login...');
-            // Implement Supabase sign-in here
-        }
-    };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-muted p-4">
-            {/* Pass the initial view state and the handler to the form component */}
             <AuthForm 
                 onSubmit={handleAuthSubmission} 
                 initialIsRegister={isRegister}
