@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import Image from "next/image";
 
 export default function Home() {
@@ -63,3 +64,60 @@ export default function Home() {
     </div>
   );
 }
+=======
+// app/page.tsx
+// This file renders the main content at the root URL (/)
+
+import { getServerSupabase } from '@/lib/supabase/server'; 
+import React from 'react';
+import Header from '@/components/header/page';
+import PersonSection from '@/components/person-section/page';
+import ActionCards from '@/components/action-cards/page';
+import CategorySection from '@/components/category-section/page';
+
+// ⚠️ TYPE CORRECTION: Standardize 'id' to string to match CategorySection interface
+interface CategoryData {
+    id: string; // Corrected from string | number
+    name: string;
+    snippet: string;
+}
+
+/**
+ * Fetches featured categories from Supabase securely on the server.
+ */
+async function fetchCategories(): Promise<CategoryData[]> {
+    const supabase = await getServerSupabase(); 
+
+    const { data, error } = await supabase
+        .from('categories')
+        .select('id, name, snippet') 
+        .eq('is_featured', true)
+        .limit(7);
+
+    if (error) {
+        console.error('Error fetching categories:', error);
+        return [];
+    }
+    
+    return data as CategoryData[];
+}
+
+/**
+ * The Main TaskMate Landing Page Component (Async Server Component)
+ */
+export default async function LandingPage() {
+    const categories = await fetchCategories();
+
+    return (
+        <div className="min-h-screen bg-background text-foreground">
+            <Header /> 
+            
+            <main className="container mx-auto p-4 md:p-8">
+                <PersonSection />
+                <ActionCards />
+                <CategorySection categories={categories} />
+            </main>
+        </div>
+    );
+}
+>>>>>>> Stashed changes
