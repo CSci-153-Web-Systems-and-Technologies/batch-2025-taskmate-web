@@ -1,9 +1,11 @@
+// LandingPage.js (or App.js)
 import React from 'react';
-import Header from '@/components/header/page';
-import PersonSection from '@/components/person-section/page';
-import ActionCards from '@/components/action-cards/page';
-import CategorySection from '@/components/category-section/page';
+import Header from '@/components/header/page.tsx';
+import PersonSection from '@/components/person-section/page.tsx';
+import ActionCards from '@/components/action-cards/page.tsx';
+import CategorySection from '@/Components/category-section/page.tsx';
 
+// Mock data to simulate fetching from your Supabase backend
 const mockCategories = [
   { id: 1, name: 'Tutoring Services', snippet: 'Exam preparation, homework help, and skill-based learning.' },
   { id: 2, name: 'Cleaning Services', snippet: 'Deep cleaning, routine maintenance, and commercial services.' },
