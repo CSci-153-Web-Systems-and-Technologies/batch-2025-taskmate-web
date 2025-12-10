@@ -8,12 +8,21 @@ export default function Header() {
     <header className="flex items-center justify-between p-4 md:p-6 border-b border-border bg-card">
       {/* Logo */}
       <Link href="/" className="flex items-center space-x-2">
+<<<<<<< HEAD
         <Image
           src="/taskmate-logo.svg" 
           alt="TaskMate Logo Icon"
           width={30} 
           height={30} 
           priority
+=======
+        <Image 
+            src="/taskmate-logo.png"
+            alt="Taskmate Togo"
+            width={30}
+            height={30}
+            priority
+>>>>>>> origin/feature/landing-page
         />
         <span className="text-2xl font-bold text-foreground">
           <span className="text-green-500">Task</span>Mate
