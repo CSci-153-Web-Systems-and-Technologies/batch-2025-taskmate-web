@@ -6,6 +6,7 @@ import AuthForm from '@/components/auth-form/page';
 import { useRouter } from 'next/navigation';
 
 const handleAuthSubmission = async (formData: any, registering: boolean) => {
+    // Basic Supabase authentication logic
     if (registering) {
         const { error } = await supabase.auth.signUp({
             email: formData.email,

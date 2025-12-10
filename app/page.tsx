@@ -6,7 +6,6 @@ import Header from '@/components/header/page';
 import PersonSection from '@/components/person-section/page';
 import ActionCards from '@/components/action-cards/page';
 import CategorySection from '@/components/category-section/page';
->>>>>>> origin/feature/landing-page
 
 // ⚠️ TYPE FIX: Standardized 'id' to string
 interface CategoryData {
@@ -31,10 +30,6 @@ async function fetchCategories(): Promise<CategoryData[]> {
     
     return data as CategoryData[];
 }
-<<<<<<< HEAD
-=======
-// app/page.tsx
-// This file renders the main content at the root URL (/)
 
 export default async function LandingPage() {
     const categories = await fetchCategories();
