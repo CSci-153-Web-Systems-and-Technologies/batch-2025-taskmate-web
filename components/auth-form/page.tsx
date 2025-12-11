@@ -1,8 +1,7 @@
-// components/auth-form/page.tsx
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Mail, Lock, User, Chrome, Facebook } from 'lucide-react'; 
+import { Lock, User, Chrome, Facebook } from 'lucide-react';
 
 interface AuthFormProps {
     onSubmit: (formData: any, isRegister: boolean) => void;
@@ -13,18 +12,21 @@ interface AuthFormProps {
 interface FormData {
     fullName: string;
     username: string;
-    email: string;
     password: string;
     confirmPassword: string;
     role: 'customer' | 'provider';
-    termsAgreed: boolean; 
+    termsAgreed: boolean;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onToggleView }) => {
     const [isRegister, setIsRegister] = useState(initialIsRegister);
     const [formData, setFormData] = useState<FormData>({
-        fullName: '', username: '', email: '', password: '', confirmPassword: '',
-        role: 'customer', termsAgreed: false,
+        fullName: '',
+        username: '', 
+        password: '',
+        confirmPassword: '',
+        role: 'customer', 
+        termsAgreed: false, 
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,8 +61,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
 
     return (
         <div className="auth-card grid md:grid-cols-2 max-w-4xl w-full bg-card rounded-3xl shadow-2xl overflow-hidden">
-            
-            {/* Left Panel: Branding */}
             <div className="auth-branding-panel flex flex-col items-center justify-center p-8 text-white bg-primary">
                 <h2 className="text-3xl font-light mb-4">Welcome to</h2>
                 
@@ -76,10 +76,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                 </p>
             </div>
 
-            {/* Right Panel: Form */}
             <div className="auth-form-panel p-8 md:p-12">
-                
-                {/* Toggle Tabs */}
                 <div className="flex mb-6 border-b border-border">
                     <button type="button" className={`text-lg font-semibold pb-2 mr-6 ${!isRegister ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground'}`} onClick={() => handleToggle(false)}>Login</button>
                     <button type="button" className={`text-lg font-semibold pb-2 ${isRegister ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground'}`} onClick={() => handleToggle(true)}>Register</button>
@@ -87,10 +84,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     
-                    {/* --- REGISTER FIELDS (Conditional) --- */}
                     {isRegister && (
                         <div className="space-y-4">
-                            {/* Role Selection */}
+
                             <div className="pt-2">
                                 <p className="text-sm font-medium mb-2 text-foreground">I want to be a:</p>
                                 <div className="flex space-x-4">
@@ -99,33 +95,44 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                                 </div>
                             </div>
 
-                            {/* Full Name */}
                             <label className="input-group">
                                 <div className='flex items-center text-muted-foreground'><User className='h-4 w-4 mr-2'/> Full Name</div>
-                                <input type="text" name="fullName" placeholder="Enter your full name" value={formData.fullName} onChange={handleChange} required className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    placeholder="Enter your full name"
+                                    value={formData.fullName}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"
+                                />
                             </label>
 
-                            {/* Username */}
                             <label className="input-group">
                                 <div className='flex items-center text-muted-foreground'><User className='h-4 w-4 mr-2'/> Username</div>
-                                <input type="text" name="username" placeholder="Enter a unique username" value={formData.username} onChange={handleChange} required className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    placeholder="Enter a unique username"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"
+                                />
                             </label>
                         </div>
                     )}
                     
-                    {/* Email (Common) */}
                     <label className="input-group">
-                        <div className='flex items-center text-muted-foreground'><Mail className='h-4 w-4 mr-2'/> Email Address</div>
-                        <input type="email" name="email" placeholder="Enter your email address" value={formData.email} onChange={handleChange} required className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
+                        <div className='flex items-center text-muted-foreground'><User className='h-4 w-4 mr-2'/> Username</div>
+                        <input type="text" name="username" placeholder="Enter your username" value={formData.username} onChange={handleChange} required className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
                     </label>
 
-                    {/* Password (Common) */}
                     <label className="input-group">
                         <div className='flex items-center text-muted-foreground'><Lock className='h-4 w-4 mr-2'/> Password</div>
                         <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} required className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
                     </label>
                         
-                    {/* Confirm Password (Register Only) */}
                     {isRegister && (
                         <label className="input-group">
                             <div className='flex items-center text-muted-foreground'><Lock className='h-4 w-4 mr-2'/> Confirm Password</div>
@@ -133,7 +140,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                         </label>
                     )}
 
-                    {/* --- T&C Checkbox (Register Only) --- */}
                     {isRegister && (
                         <label className="flex items-center space-x-2 text-xs text-muted-foreground pt-2">
                             <input type="checkbox" name="termsAgreed" checked={formData.termsAgreed} onChange={handleChange} required className="rounded text-primary" />
@@ -143,7 +149,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                         </label>
                     )}
 
-                    {/* Form Options (Remember Me / Forgot Password - Login Only) */}
                     {!isRegister && (
                         <div className="flex justify-between items-center text-xs pt-1">
                             <label className="flex items-center space-x-1 text-muted-foreground">
@@ -154,12 +159,10 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                         </div>
                     )}
                         
-                    {/* Submit Button */}
                     <button type="submit" className="w-full py-2 mt-4 text-lg font-semibold bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition">
                         {isRegister ? 'Create Account' : 'Log In'}
                     </button>
 
-                    {/* Social Login and Footer */}
                     <div className="social-login flex justify-center space-x-4 pt-4">
                         <button type="button" className="p-2 border border-border rounded-full hover:bg-muted transition">
                             <Facebook className="h-6 w-6 text-blue-600" />
