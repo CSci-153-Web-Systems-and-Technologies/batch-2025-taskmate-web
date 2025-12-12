@@ -10,7 +10,7 @@ interface AuthFormProps {
 }
 
 interface FormData {
-    fullName: string;
+    fullname: string; 
     username: string;
     password: string;
     confirmPassword: string;
@@ -21,7 +21,7 @@ interface FormData {
 const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onToggleView }) => {
     const [isRegister, setIsRegister] = useState(initialIsRegister);
     const [formData, setFormData] = useState<FormData>({
-        fullName: '',
+        fullname: '', 
         username: '', 
         password: '',
         confirmPassword: '',
@@ -61,6 +61,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
 
     return (
         <div className="auth-card grid md:grid-cols-2 max-w-4xl w-full bg-card rounded-3xl shadow-2xl overflow-hidden">
+            
             <div className="auth-branding-panel flex flex-col items-center justify-center p-8 text-white bg-primary">
                 <h2 className="text-3xl font-light mb-4">Welcome to</h2>
                 
@@ -77,6 +78,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
             </div>
 
             <div className="auth-form-panel p-8 md:p-12">
+                
                 <div className="flex mb-6 border-b border-border">
                     <button type="button" className={`text-lg font-semibold pb-2 mr-6 ${!isRegister ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground'}`} onClick={() => handleToggle(false)}>Login</button>
                     <button type="button" className={`text-lg font-semibold pb-2 ${isRegister ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground'}`} onClick={() => handleToggle(true)}>Register</button>
@@ -86,7 +88,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                     
                     {isRegister && (
                         <div className="space-y-4">
-
                             <div className="pt-2">
                                 <p className="text-sm font-medium mb-2 text-foreground">I want to be a:</p>
                                 <div className="flex space-x-4">
@@ -99,27 +100,15 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                                 <div className='flex items-center text-muted-foreground'><User className='h-4 w-4 mr-2'/> Full Name</div>
                                 <input
                                     type="text"
-                                    name="fullName"
+                                    name="fullname"
                                     placeholder="Enter your full name"
-                                    value={formData.fullName}
+                                    value={formData.fullname}
                                     onChange={handleChange}
                                     required
                                     className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"
                                 />
                             </label>
-
-                            <label className="input-group">
-                                <div className='flex items-center text-muted-foreground'><User className='h-4 w-4 mr-2'/> Username</div>
-                                <input
-                                    type="text"
-                                    name="username"
-                                    placeholder="Enter a unique username"
-                                    value={formData.username}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"
-                                />
-                            </label>
+                            
                         </div>
                     )}
                     

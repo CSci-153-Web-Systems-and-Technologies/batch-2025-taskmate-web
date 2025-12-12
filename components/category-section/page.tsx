@@ -1,10 +1,7 @@
-// components/category-section/page.tsx
 import React from 'react';
 import Link from 'next/link';
-// ⚠️ FIX: Use explicit file extension to resolve import errors
 import CategoryCard from '../category-card/page'; 
 
-// ⚠️ TYPE FIX: Standardize 'id' to string to match app/page.tsx and Supabase UUIDs
 interface Category {
     id: string; 
     name: string;
@@ -21,19 +18,17 @@ export default function CategorySection({ categories }: { categories: Category[]
                 Find exactly what you need from our diverse range of service categories, or discover new opportunities to offer your skills.
             </p>
 
-            {/* Category Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {/* Limits the display to the first 8 categories for the landing page view */}
                 {categories.slice(0, 8).map((category) => (
                     <CategoryCard
                         key={category.id}
+                        id={category.id}
                         name={category.name}
                         snippet={category.snippet}
                     />
                 ))}
             </div>
 
-            {/* View More Button (Links to the full /categories page) */}
             <div className="mt-12">
                 <Link 
                     href="/categories" 
