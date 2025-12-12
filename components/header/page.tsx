@@ -1,20 +1,25 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getServerSupabase } from '@/lib/supabase/server';
+import { getServerSupabase } from '@/lib/supabase/server'; 
 
 async function fetchUserData() {
-    const supabase = await getServerSupabase();
+    const supabase = getServerSupabase();
     
-    const { data: { user } } = await supabase.auth.getUser();
+    if (!supabase) {
+        console.error("Supabase client failed to initialize in Header component.");
+        return null;
+    }
+    
+    const { data: { user } } = await (await supabase).auth.getUser();
 
     if (!user) {
         return null;
     }
 
-    const { data: profile, error } = await supabase
+    const { data: profile, error } = await (await supabase)
         .from('profiles')
-        .select('full_name, role')
+        .select('fullname, role') 
         .eq('id', user.id)
         .single();
     
@@ -25,9 +30,9 @@ async function fetchUserData() {
 
     return {
         isLoggedIn: true,
-        fullName: profile.full_name || 'User',
+        fullName: profile.fullname || 'User',
         role: profile.role,
-        initials: (profile.full_name || 'U')[0],
+        initials: (profile.fullname || 'U')[0],
     };
 }
 
