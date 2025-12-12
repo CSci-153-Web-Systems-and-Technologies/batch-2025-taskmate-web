@@ -1,10 +1,10 @@
 "use client";
-import React from 'react'; 
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase/client';
-import { LayoutDashboard, Calendar, Heart, Settings, LogOut, ArrowLeft, Clock } from 'lucide-react';
+import { supabase } from '@/lib/supabase/client'; 
+import { LayoutDashboard, Calendar, FileText, Star, DollarSign, Settings, LogOut, ArrowLeft } from 'lucide-react';
 
 interface NavItem {
     name: string;
@@ -12,21 +12,24 @@ interface NavItem {
     icon: React.ElementType;
 }
 
-const navItems: NavItem[] = [
+// Provider-specific navigation items
+const providerNavItems: NavItem[] = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'My Bookings', href: '/dashboard/bookings', icon: Calendar },
-    { name: 'Saved Providers', href: '/dashboard/saved', icon: Heart },
-    { name: 'Payment History', href: '/dashboard/payment', icon: Clock },
+    { name: 'Bookings', href: '/dashboard/provider/bookings', icon: Calendar },
+    { name: 'My Services', href: '/dashboard/provider/services', icon: FileText },
+    // Removed Messages option based on user request
+    { name: 'Analytics', href: '/dashboard/provider/analytics', icon: Star }, 
+    { name: 'Rating', href: '/dashboard/provider/rating', icon: Star },
+    { name: 'Earning', href: '/dashboard/provider/earning', icon: DollarSign },
     { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
-export default function DashboardSidebar() {
+export default function ProviderDashboardSidebar() {
     const currentPath = usePathname(); 
-    const router = useRouter();
+    const router = useRouter(); 
 
     const handleSignOut = async () => {
         const { error } = await supabase.auth.signOut();
-
         if (!error) {
             router.push('/');
             router.refresh(); 
@@ -39,6 +42,7 @@ export default function DashboardSidebar() {
     return (
         <aside className="fixed left-0 top-0 h-full w-64 bg-card p-6 border-r border-border flex flex-col justify-between">
             
+            {/* Top Section: Logo and Navigation */}
             <div>
                 <div className="flex items-center space-x-2 mb-8">
                     <Image src="/taskmate-logo.svg" alt="TaskMate Logo Icon" width={30} height={30} priority/>
@@ -47,10 +51,12 @@ export default function DashboardSidebar() {
                     </span>
                 </div>
 
+                {/* Navigation Links */}
                 <nav className="space-y-2">
-                    {navItems.map((item) => {
+                    {providerNavItems.map((item) => {
                         const Icon = item.icon;
                         
+                        // ⚠️ FIX: Use strict match for the base dashboard path, and startsWith for all others.
                         const isDashboard = item.href === '/dashboard';
                         
                         const isActive = isDashboard 
@@ -73,6 +79,7 @@ export default function DashboardSidebar() {
                 </nav>
             </div>
 
+            {/* Bottom Section: Log Out and Back to Home */}
             <div className="space-y-2">
                 <button 
                     onClick={handleSignOut}
@@ -81,10 +88,7 @@ export default function DashboardSidebar() {
                     <LogOut className="h-5 w-5 mr-3" />
                     <span>Log Out</span>
                 </button>
-                <Link 
-                    href="/" 
-                    className="w-full flex items-center p-3 rounded-xl font-medium text-muted-foreground hover:bg-muted transition"
-                >
+                <Link href="/" className="w-full flex items-center p-3 rounded-xl font-medium text-muted-foreground hover:bg-muted transition">
                     <ArrowLeft className="h-5 w-5 mr-3" />
                     <span>Back to Home</span>
                 </Link>
