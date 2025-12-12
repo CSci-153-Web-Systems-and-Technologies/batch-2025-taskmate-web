@@ -1,16 +1,20 @@
+// components/header/page.tsx
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getServerSupabase } from '@/lib/supabase/server'; 
+import { getServerSupabase } from '@/lib/supabase/server';
 
 async function fetchUserData() {
-    const supabase = getServerSupabase();
+    // ⚠️ CRITICAL FIX: Removed 'await' since getServerSupabase is now synchronous.
+    const supabase = getServerSupabase(); 
     
+    // Defensive check (retained for safety)
     if (!supabase) {
-        console.error("Supabase client failed to initialize in Header component.");
+        console.error("Supabase client failed to initialize.");
         return null;
     }
-    
+
+    // This must remain 'await' because supabase.auth.getUser() is asynchronous.
     const { data: { user } } = await (await supabase).auth.getUser();
 
     if (!user) {
@@ -19,6 +23,7 @@ async function fetchUserData() {
 
     const { data: profile, error } = await (await supabase)
         .from('profiles')
+        // Using 'fullname' based on your database structure fix
         .select('fullname, role') 
         .eq('id', user.id)
         .single();
@@ -30,6 +35,7 @@ async function fetchUserData() {
 
     return {
         isLoggedIn: true,
+        // Using 'fullname' from the database
         fullName: profile.fullname || 'User',
         role: profile.role,
         initials: (profile.fullname || 'U')[0],

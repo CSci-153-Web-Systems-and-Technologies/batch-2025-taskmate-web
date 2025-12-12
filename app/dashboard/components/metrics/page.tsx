@@ -1,14 +1,17 @@
-// app/dashboard/components/DashboardMetrics.tsx
+"use client";
 import React from 'react';
 import { CalendarCheck, Clock, MessageSquare, DollarSign } from 'lucide-react';
 
-interface MetricsProps {
-    metrics: {
-        activeBookings: number;
-        completedBookings: number;
-        messages: number;
-        paymentHistory: number; // This key contains the total amount spent
-    };
+interface DashboardMetricsData {
+    activeBookings: number;
+    completedBookings: number;
+    messages: number;
+    monetaryValue: number;
+}
+
+interface DashboardMetricsProps {
+    metrics: DashboardMetricsData;
+    isProvider?: boolean;
 }
 
 interface MetricCardProps {
@@ -16,15 +19,15 @@ interface MetricCardProps {
     value: string | number;
     icon: React.ElementType;
     color: string;
+    isCurrency: boolean;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, color }) => (
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, color, isCurrency }) => (
     <div className="bg-card p-6 rounded-xl shadow-lg border border-border flex items-center justify-between">
         <div>
             <p className="text-sm font-medium text-muted-foreground mb-1">{title}</p>
             <h3 className="text-2xl font-bold text-foreground">
-                {/* Check if the title is "Total Paid" and format as currency (₱) */}
-                {title === 'Total Paid' ? `₱${value.toLocaleString()}` : value}
+                {isCurrency ? `₱${value.toLocaleString()}` : value}
             </h3>
         </div>
         <div className={`p-3 rounded-full ${color} text-white`}>
@@ -33,7 +36,12 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, color
     </div>
 );
 
-export default function DashboardMetrics({ metrics }: MetricsProps) {
+export default function DashboardMetrics({ metrics, isProvider = false }: DashboardMetricsProps) {
+    
+    const fourthCardTitle = isProvider ? "Current Income" : "Total Paid";
+    
+    const messageIconColor = metrics.messages > 0 ? "bg-purple-600" : "bg-purple-300";
+
     return (
         <section className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
             <MetricCard 
@@ -41,25 +49,28 @@ export default function DashboardMetrics({ metrics }: MetricsProps) {
                 value={metrics.activeBookings} 
                 icon={Clock} 
                 color="bg-blue-500" 
+                isCurrency={false}
             />
             <MetricCard 
                 title="Completed" 
                 value={metrics.completedBookings} 
                 icon={CalendarCheck} 
                 color="bg-green-500" 
+                isCurrency={false}
             />
             <MetricCard 
                 title="Messages" 
                 value={metrics.messages} 
                 icon={MessageSquare} 
-                color="bg-purple-500" 
+                color={messageIconColor} 
+                isCurrency={false}
             />
-            {/* RENAMED the title displayed to "Total Paid" */}
             <MetricCard 
-                title="Total Paid" 
-                value={metrics.paymentHistory} // Uses the paymentHistory value
+                title={fourthCardTitle}
+                value={metrics.monetaryValue}
                 icon={DollarSign} 
                 color="bg-red-500" 
+                isCurrency={true}
             />
         </section>
     );

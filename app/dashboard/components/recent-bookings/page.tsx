@@ -55,9 +55,7 @@ export default function RecentBookings({ bookings }: RecentBookingsProps) {
                             <tr key={booking.id}>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">{booking.id}</td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex items-center">
-                                    {/* Placeholder Avatar */}
                                     <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 mr-3">
-                                        {/* Image component for customer avatar goes here */}
                                     </div>
                                     {booking.customerName}
                                 </td>
