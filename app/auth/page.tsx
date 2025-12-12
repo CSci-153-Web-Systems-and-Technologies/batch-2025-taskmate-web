@@ -1,21 +1,21 @@
-// app/auth/page.tsx
 "use client";
 import React, { useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { supabase } from '@/lib/supabase/client'; 
 import AuthForm from '@/components/auth-form/page'; 
-import { useRouter } from 'next/navigation';
 
 const handleAuthSubmission = async (formData: any, registering: boolean) => {
-    // Basic Supabase authentication logic
+    
+    const uniqueEmail = `${formData.username.toLowerCase()}@taskmate.com`;
+    
     if (registering) {
         const { error } = await supabase.auth.signUp({
-            email: formData.email,
+            email: uniqueEmail, 
             password: formData.password,
             options: {
                 data: {
-                    full_name: formData.fullName, 
+                    fullname: formData.fullname,
                     username: formData.username,
-                    role: formData.role,
+                    role: formData.role, 
                 }
             }
         });
@@ -23,11 +23,11 @@ const handleAuthSubmission = async (formData: any, registering: boolean) => {
         if (error) {
             alert(`Sign Up Error: ${error.message}`);
         } else {
-            alert('Success! Check your email to confirm your account.');
+            alert('Success! Your account is created (using username for login).');
         }
     } else {
         const { error } = await supabase.auth.signInWithPassword({
-            email: formData.email,
+            email: uniqueEmail,
             password: formData.password,
         });
 
