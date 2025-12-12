@@ -46,6 +46,7 @@ export default async function AllCategoriesPage() {
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                     {categories.map((category) => (
                         <CategoryCard
+                            id={category.id}
                             key={category.id}
                             name={category.name}
                             snippet={category.snippet}
