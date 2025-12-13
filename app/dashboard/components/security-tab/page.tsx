@@ -1,4 +1,3 @@
-// app/dashboard/settings/components/SecurityTab.tsx
 "use client";
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase/client';
@@ -28,12 +27,6 @@ const SecurityTab: React.FC = () => {
             return;
         }
 
-        // NOTE: Supabase only allows password change if the user is signed in 
-        // with the password strategy (not social login) AND if you verify the current password.
-        // The standard Supabase password update function does NOT require the old password,
-        // but for security, you should implement re-authentication first.
-        
-        // For simplicity (MVP): Directly update the password
         const { error } = await supabase.auth.updateUser({
             password: newPassword,
         });

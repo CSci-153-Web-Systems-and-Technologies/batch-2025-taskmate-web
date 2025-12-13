@@ -1,4 +1,3 @@
-// app/dashboard/settings/components/ProfileTab.tsx
 "use client";
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase/client';
@@ -27,7 +26,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
         setLoading(true);
         const { fullName, location } = formData;
         
-        // 1. Get user ID
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
             alert("Must be logged in to save.");
@@ -35,7 +33,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
             return;
         }
 
-        // 2. Update the public.profiles table
         const { error } = await supabase
             .from('profiles')
             .update({ fullname: fullName, location: location })
@@ -50,7 +47,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
         }
     };
 
-    // Simple parser for display
     const [givenName, lastName] = formData.fullName.split(' ').filter(Boolean);
 
     return (
@@ -58,9 +54,7 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
             <h2 className="text-xl font-semibold mb-4">Profile Information</h2>
 
             <div className="grid grid-cols-2 gap-8">
-                {/* Left Side: Name and Location Inputs */}
                 <div className="space-y-4">
-                    {/* Last Name (Parsed) */}
                     <label className="block">
                         <span className="text-sm font-medium text-muted-foreground">Last Name</span>
                         <input
@@ -73,7 +67,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
                         />
                     </label>
 
-                    {/* Given Name (Parsed) */}
                     <label className="block">
                         <span className="text-sm font-medium text-muted-foreground">Given Name</span>
                         <input
@@ -86,7 +79,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
                         />
                     </label>
 
-                    {/* Email (Read-only) */}
                     <label className="block">
                         <span className="text-sm font-medium text-muted-foreground">Email</span>
                         <input
@@ -97,7 +89,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
                         />
                     </label>
                     
-                    {/* Location */}
                     <label className="block">
                         <span className="text-sm font-medium text-muted-foreground">Location</span>
                         <input
@@ -110,9 +101,7 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
                     </label>
                 </div>
 
-                {/* Right Side: Avatar, Notifications */}
                 <div className="space-y-4">
-                    {/* Avatar and Change Photo Button */}
                     <div className="flex flex-col items-center p-4 border border-border rounded-lg bg-muted">
                         <div className="w-24 h-24 relative rounded-full mb-3">
                             <Image src={initialData.avatarUrl} alt="Avatar" layout="fill" objectFit="cover" className="rounded-full" />
@@ -122,7 +111,6 @@ const ProfileTab: React.FC<{ initialData: UserProfile }> = ({ initialData }) => 
                         </button>
                     </div>
 
-                    {/* Notification Toggles */}
                     <div className="space-y-3">
                         <h3 className="text-md font-medium">Notifications</h3>
                         <div className="flex justify-between items-center text-sm">

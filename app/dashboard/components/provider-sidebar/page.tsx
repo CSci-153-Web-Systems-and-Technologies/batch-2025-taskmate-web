@@ -12,12 +12,10 @@ interface NavItem {
     icon: React.ElementType;
 }
 
-// Provider-specific navigation items
 const providerNavItems: NavItem[] = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { name: 'Bookings', href: '/dashboard/provider/bookings', icon: Calendar },
     { name: 'My Services', href: '/dashboard/provider/services', icon: FileText },
-    // Removed Messages option based on user request
     { name: 'Analytics', href: '/dashboard/provider/analytics', icon: Star }, 
     { name: 'Rating', href: '/dashboard/provider/rating', icon: Star },
     { name: 'Earning', href: '/dashboard/provider/earning', icon: DollarSign },
@@ -42,7 +40,6 @@ export default function ProviderDashboardSidebar() {
     return (
         <aside className="fixed left-0 top-0 h-full w-64 bg-card p-6 border-r border-border flex flex-col justify-between">
             
-            {/* Top Section: Logo and Navigation */}
             <div>
                 <div className="flex items-center space-x-2 mb-8">
                     <Image src="/taskmate-logo.svg" alt="TaskMate Logo Icon" width={30} height={30} priority/>
@@ -51,12 +48,10 @@ export default function ProviderDashboardSidebar() {
                     </span>
                 </div>
 
-                {/* Navigation Links */}
                 <nav className="space-y-2">
                     {providerNavItems.map((item) => {
                         const Icon = item.icon;
                         
-                        // ⚠️ FIX: Use strict match for the base dashboard path, and startsWith for all others.
                         const isDashboard = item.href === '/dashboard';
                         
                         const isActive = isDashboard 
@@ -79,7 +74,6 @@ export default function ProviderDashboardSidebar() {
                 </nav>
             </div>
 
-            {/* Bottom Section: Log Out and Back to Home */}
             <div className="space-y-2">
                 <button 
                     onClick={handleSignOut}

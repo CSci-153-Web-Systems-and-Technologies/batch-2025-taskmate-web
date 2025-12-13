@@ -1,4 +1,3 @@
-// app/dashboard/payment/page.tsx
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import DashboardSidebar from '../components/sidebar/page';
@@ -15,24 +14,19 @@ interface TransactionData {
     hourlyRate: number;
 }
 
-/**
- * Fetches the user's payment history data from Supabase.
- */
 async function fetchPaymentHistory(): Promise<TransactionData[]> {
     const supabase = await getServerSupabase();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) return [];
 
-    // ⚠️ Replace mock data with a real query to your 'transactions' table
-    // Assumed table structure includes transactions linking to provider profiles
     const { data: transactionData, error } = await supabase
         .from('transactions')
         .select(`
             id, amount, service_title, transaction_date,
             provider:profiles!fk_provider_id_fkey (fullname, username, rating)
         `)
-        .eq('user_id', user.id) // Filter by current customer
+        .eq('user_id', user.id) 
         .order('transaction_date', { ascending: false });
 
     if (error) {
@@ -49,7 +43,6 @@ async function fetchPaymentHistory(): Promise<TransactionData[]> {
         amount: t.amount,
         transactionDate: new Date(t.transaction_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         rating: t.provider?.rating || 0,
-        // Mocking hourlyRate as it may not be on the transaction table
         hourlyRate: 500, 
     })) as TransactionData[];
 }
