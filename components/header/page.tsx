@@ -43,17 +43,10 @@ export default async function Header() {
         if (!userData || !userData.isLoggedIn) {
             return (
                 <div className="space-x-4 flex items-center">
-<<<<<<< Updated upstream
                     <Link href="/auth" className="text-sm font-medium text-foreground hover:text-primary">
                         Log In
                     </Link>
                     <Link href="/auth" className="px-4 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition">
-=======
-                    <Link href="/auth/signin" className="text-sm font-medium text-foreground hover:text-primary">
-                        Log In
-                    </Link>
-                    <Link href="/auth/signup" className="px-4 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition">
->>>>>>> Stashed changes
                         Sign Up
                     </Link>
                 </div>
@@ -93,12 +86,8 @@ export default async function Header() {
 
             <nav className="hidden md:flex space-x-6 text-sm font-medium">
                 <Link href="/">Home</Link>
-<<<<<<< Updated upstream
                 <Link href="/categories">Categories</Link>
                 <Link href="/browse">Browse</Link>
-=======
-                <Link href="/category">Category</Link>
->>>>>>> Stashed changes
             </nav>
 
             <AuthContent />
