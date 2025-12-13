@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import Link from 'next/link';

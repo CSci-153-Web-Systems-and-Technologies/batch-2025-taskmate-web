@@ -54,6 +54,47 @@ async function fetchProviderBookings(): Promise<Booking[]> {
     });
 }
 
+async function fetchProviderBookings(): Promise<Booking[]> {
+    const supabase = await getServerSupabase();
+    if (!supabase) return []; 
+    
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect('/auth/signin');
+
+    const { data: rawBookings, error } = await supabase
+        .from('bookings')
+        .select('id, date, time, status, amount, service_id, customer_id')
+        .eq('provider_id', user.id) // Filter by Provider ID
+        .order('date', { ascending: false });
+
+    if (error || !rawBookings?.length) return [];
+    
+    const serviceIds = rawBookings.map(b => b.service_id);
+    const customerIds = rawBookings.map(b => b.customer_id);
+
+    const { data: services } = await supabase.from('services').select('id, title').in('id', serviceIds);
+    const { data: profiles } = await supabase.from('profiles').select('id, fullname').in('id', customerIds);
+
+    const serviceMap = new Map(services?.map(s => [s.id, s]) || []);
+    const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
+
+    return rawBookings.map(b => {
+        const service = serviceMap.get(b.service_id);
+        const customer = profileMap.get(b.customer_id);
+
+        return {
+            id: b.id,
+            customerName: customer?.fullname || 'Unknown Customer', 
+            serviceTitle: service?.title || 'Service Unavailable',
+            date: new Date(b.date).toLocaleDateString(),
+            time: b.time,
+            status: b.status,
+            amount: b.amount,
+        };
+    });
+>>>>>>> Stashed changes
+}
+
 export default async function ProviderBookingsPage() {
     const bookings = await fetchProviderBookings();
 
