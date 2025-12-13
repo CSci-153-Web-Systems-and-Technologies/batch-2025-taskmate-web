@@ -1,7 +1,13 @@
+<<<<<<< Updated upstream
 // app/dashboard/provider/analytics/page.tsx
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import ProviderDashboardSidebar from '../../components/provider-sidebar/page'; 
+=======
+import React from 'react';
+import { getServerSupabase } from '@/lib/supabase/server';
+import ProviderDashboardSidebar from '../../components/provider-sidebar'; 
+>>>>>>> Stashed changes
 import { TrendingUp, MessageCircle, Clock, DollarSign } from 'lucide-react';
 
 interface AnalyticsData {
@@ -123,7 +129,11 @@ export default async function ProviderAnalyticsPage() {
                     </div>
                 </div>
 
+<<<<<<< Updated upstream
                 {/* Earnings Overview Card */}
+=======
+
+>>>>>>> Stashed changes
                 <div className="bg-card p-6 rounded-xl shadow-lg border border-border">
                     <h2 className="text-xl font-semibold mb-4 flex items-center"><DollarSign className="w-5 h-5 mr-2 text-green-500" /> Earnings Overview</h2>
                     <div className="space-y-2">

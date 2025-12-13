@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 // app/dashboard/provider/earning/components/EarningMetrics.tsx
+=======
+>>>>>>> Stashed changes
 import React from 'react';
 import { TrendingUp, FileText, Clock, DollarSign } from 'lucide-react';
 
@@ -33,7 +36,10 @@ export default function EarningMetrics({ data }: { data: EarningData }) {
     return (
         <section className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
             
+<<<<<<< Updated upstream
             {/* 1. Total Earning */}
+=======
+>>>>>>> Stashed changes
             <MetricCard 
                 title="Total Earning" 
                 value={formatCurrency(data.totalEarning)}
@@ -41,7 +47,10 @@ export default function EarningMetrics({ data }: { data: EarningData }) {
                 color="bg-green-500" 
             />
 
+<<<<<<< Updated upstream
             {/* 2. Pending Earning */}
+=======
+>>>>>>> Stashed changes
             <MetricCard 
                 title="Pending Earning" 
                 value={formatCurrency(data.pendingEarning)}
@@ -49,7 +58,10 @@ export default function EarningMetrics({ data }: { data: EarningData }) {
                 color="bg-yellow-500" 
             />
 
+<<<<<<< Updated upstream
             {/* 3. Commission Rate */}
+=======
+>>>>>>> Stashed changes
             <MetricCard 
                 title="Commission" 
                 value={`${(data.commissionRate * 100).toFixed(0)}%`}
@@ -57,10 +69,16 @@ export default function EarningMetrics({ data }: { data: EarningData }) {
                 color="bg-purple-500" 
             />
             
+<<<<<<< Updated upstream
             {/* 4. Total Completed Bookings (Mocked based on common metrics) */}
             <MetricCard 
                 title="Completed Bookings" 
                 value="45" // Placeholder value
+=======
+            <MetricCard 
+                title="Completed Bookings" 
+                value="45"
+>>>>>>> Stashed changes
                 icon={TrendingUp} 
                 color="bg-blue-500" 
             />
