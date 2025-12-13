@@ -1,4 +1,3 @@
-// app/dashboard/components/RecentBookings.tsx
 import React from 'react';
 import Image from 'next/image';
 
@@ -16,7 +15,6 @@ interface RecentBookingsProps {
     bookings: Booking[];
 }
 
-// Utility to determine status styling
 const getStatusClasses = (status: Booking['status']) => {
     switch (status) {
         case 'Confirmed': return 'bg-green-100 text-green-700 border-green-300';

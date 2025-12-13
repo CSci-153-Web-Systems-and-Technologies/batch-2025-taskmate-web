@@ -1,4 +1,3 @@
-// app/dashboard/settings/components/SettingsTabs.tsx
 "use client";
 import React, { useState } from 'react';
 import ProfileTab from '../profile-tab/page';
@@ -16,7 +15,6 @@ export default function SettingsTabs({ initialProfileData }: { initialProfileDat
 
     return (
         <div className="max-w-4xl">
-            {/* Tab Navigation */}
             <div className="flex bg-card p-1 rounded-xl shadow-inner mb-8 border border-border">
                 <button
                     onClick={() => setActiveTab('profile')}
@@ -36,7 +34,6 @@ export default function SettingsTabs({ initialProfileData }: { initialProfileDat
                 </button>
             </div>
 
-            {/* Tab Content */}
             <div className="bg-card p-8 rounded-xl shadow-lg border border-border">
                 {activeTab === 'profile' ? (
                     <ProfileTab initialData={initialProfileData} />

@@ -1,4 +1,3 @@
-// app/dashboard/saved/components/SavedProvidersList.tsx
 "use client";
 import React from 'react';
 import Link from 'next/link';
@@ -25,11 +24,8 @@ const ProviderCard: React.FC<{ provider: ProviderData }> = ({ provider }) => {
     return (
         <div className="bg-card p-6 rounded-xl shadow-md border border-border flex items-center justify-between transition hover:shadow-lg">
             
-            {/* Left Section: Profile Info */}
             <div className="flex items-center space-x-4">
-                {/* Avatar Placeholder */}
                 <div className="w-16 h-16 relative rounded-full overflow-hidden bg-gray-200">
-                    {/* Placeholder image here */}
                 </div>
                 
                 <div>
@@ -39,14 +35,11 @@ const ProviderCard: React.FC<{ provider: ProviderData }> = ({ provider }) => {
                     <p className="text-sm text-muted-foreground mb-1">{provider.expertTitle}</p>
                     
                     <div className="flex items-center space-x-4 text-sm">
-                        {/* Rating */}
                         <div className="flex items-center text-yellow-600">
                             <Star className="h-4 w-4 fill-yellow-500 text-yellow-500 mr-1" />
                             <span>{provider.rating.toFixed(1)}</span>
                         </div>
-                        {/* Rate */}
                         <span className="font-medium text-foreground">{formatCurrency(provider.hourlyRate)}</span>
-                        {/* Availability */}
                         <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${
                             provider.availability === 'Available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                         }`}>
@@ -56,7 +49,6 @@ const ProviderCard: React.FC<{ provider: ProviderData }> = ({ provider }) => {
                 </div>
             </div>
 
-            {/* Right Section: Actions */}
             <div className="flex space-x-3 text-sm font-semibold">
                 <button className="px-3 py-2 border border-border rounded-lg hover:bg-muted transition">
                     Message

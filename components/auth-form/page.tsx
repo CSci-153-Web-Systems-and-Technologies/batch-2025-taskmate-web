@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Lock, User, Chrome, Facebook } from 'lucide-react';
+import { Lock, User, Chrome, Facebook, Mail } from 'lucide-react';
 
 interface AuthFormProps {
     onSubmit: (formData: any, isRegister: boolean) => void;
@@ -11,7 +11,7 @@ interface AuthFormProps {
 
 interface FormData {
     fullname: string; 
-    username: string;
+    email: string;
     password: string;
     confirmPassword: string;
     role: 'customer' | 'provider';
@@ -22,7 +22,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
     const [isRegister, setIsRegister] = useState(initialIsRegister);
     const [formData, setFormData] = useState<FormData>({
         fullname: '', 
-        username: '', 
+        email: '',
         password: '',
         confirmPassword: '',
         role: 'customer', 
@@ -113,8 +113,16 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                     )}
                     
                     <label className="input-group">
-                        <div className='flex items-center text-muted-foreground'><User className='h-4 w-4 mr-2'/> Username</div>
-                        <input type="text" name="username" placeholder="Enter your username" value={formData.username} onChange={handleChange} required className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
+                        <div className='flex items-center text-muted-foreground'><Mail className='h-4 w-4 mr-2'/> Email Address</div>
+                        <input 
+                            type="email"
+                            name="email" 
+                            placeholder="Enter your email address" 
+                            value={formData.email} 
+                            onChange={handleChange} 
+                            required 
+                            className="w-full p-2 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"
+                        />
                     </label>
 
                     <label className="input-group">
@@ -161,16 +169,16 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                         </button>
                     </div>
                     
-                    <div className="text-center text-sm mt-6">
+\                    <div className="text-center text-sm mt-6">
                         {isRegister ? (
                             <span>
                                 Already have an account?{' '}
-                                <a href="#" onClick={() => handleToggle(false)} className="text-primary hover:underline">Log In</a>
+\                                <span onClick={() => handleToggle(false)} className="text-primary hover:underline cursor-pointer">Log In</span>
                             </span>
                         ) : (
                             <span>
                                 Don't have an account?{' '}
-                                <a href="#" onClick={() => handleToggle(true)} className="text-primary hover:underline">Sign Up</a>
+\                                <span onClick={() => handleToggle(true)} className="text-primary hover:underline cursor-pointer">Sign Up</span>
                             </span>
                         )}
                     </div>
