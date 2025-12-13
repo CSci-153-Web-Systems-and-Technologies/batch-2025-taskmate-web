@@ -2,75 +2,36 @@ import { getServerSupabase } from '@/lib/supabase/server';
 import React from 'react';
 import Header from '@/components/header/page';
 import CategoryCard from '@/components/category-card/page';
-<<<<<<< Updated upstream
-=======
 import { LayoutGrid } from 'lucide-react';
->>>>>>> Stashed changes
 
 interface CategoryData {
     id: string;
     name: string;
-<<<<<<< Updated upstream
-    snippet: string;
-=======
     is_featured: boolean;
->>>>>>> Stashed changes
 }
 
 async function fetchAllCategories(): Promise<CategoryData[]> {
     const supabase = await getServerSupabase();
     
-<<<<<<< Updated upstream
-    const { data, error } = await supabase
-        .from('categories')
-        .select('id, name, snippet') 
-=======
-    // We query the 'category' table (singular) as established in your previous code
     const { data, error } = await supabase
         .from('categories') 
         .select('id, name') 
->>>>>>> Stashed changes
         .order('name', { ascending: true });
 
     if (error) {
         console.error('Error fetching all categories:', error);
         return [];
     }
-<<<<<<< Updated upstream
-    return data as CategoryData[];
-}
-
-export default async function AllCategoriesPage() {
-=======
     
     return data as CategoryData[];
 }
 
 export default async function CategoryIndexPage() {
->>>>>>> Stashed changes
     const categories = await fetchAllCategories();
 
     return (
         <div className="min-h-screen bg-background text-foreground">
             <Header />
-<<<<<<< Updated upstream
-            <main className="container mx-auto p-4 md:p-8 text-center">
-                <h1 className="text-4xl font-bold mb-4">All Categories</h1>
-                <p className="text-muted-foreground mb-10">
-                    Browse every service available or discover new skills to offer!
-                </p>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                    {categories.map((category) => (
-                        <CategoryCard
-                            id={category.id}
-                            key={category.id}
-                            name={category.name}
-                            snippet={category.snippet}
-                        />
-                    ))}
-                </div>
-=======
             
             <main className="container mx-auto p-4 md:p-8 text-center">
                 <div className="max-w-3xl mx-auto mb-12">
@@ -100,7 +61,6 @@ export default async function CategoryIndexPage() {
                         ))}
                     </div>
                 )}
->>>>>>> Stashed changes
             </main>
         </div>
     );

@@ -1,12 +1,5 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-<<<<<<< Updated upstream
-import CustomerDashboardSidebar from '../components/sidebar/page'; 
-import ProviderDashboardSidebar from '../components/provider-sidebar/page'; 
-import SettingsTabs from '../components/settings-tabs/page'; 
-interface UserProfile {
-    fullName: string;
-=======
 import { redirect } from 'next/navigation';
 import CustomerDashboardSidebar from '../components/sidebar'; 
 import ProviderDashboardSidebar from '../components/provider-sidebar'; 
@@ -15,7 +8,6 @@ import SettingsTabs from '../components/settings-tabs';
 interface UserProfile {
     fullName: string;
     username: string;
->>>>>>> Stashed changes
     location: string;
     email: string;
     avatarUrl: string; 
@@ -25,27 +17,11 @@ interface UserProfile {
 async function fetchUserProfile(): Promise<UserProfile | null> {
     const supabase = await getServerSupabase(); 
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     if (!supabase) {
         console.error("Supabase client failed to initialize in Settings fetchUserProfile.");
         return null;
     }
     
-<<<<<<< Updated upstream
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) return null;
-
-    const { data: profile } = await supabase
-        .from('profiles')
-        .select('fullname, location, role')
-        .eq('id', user.id)
-        .single();
-=======
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
@@ -57,7 +33,6 @@ async function fetchUserProfile(): Promise<UserProfile | null> {
     .select('fullname, username, role, is_active, rating, location, avatar_url')
     .eq('id', user.id)
     .single();
->>>>>>> Stashed changes
     
     if (!profile) return null;
     
@@ -65,16 +40,10 @@ async function fetchUserProfile(): Promise<UserProfile | null> {
     
     return {
         fullName: profile.fullname || 'User',
-<<<<<<< Updated upstream
-        location: profile.location || 'Not set',
-        email: userEmail,
-        avatarUrl: '/default-avatar.png',
-=======
         username: profile.username || '', 
         location: profile.location || '',
         email: userEmail,
         avatarUrl: profile.avatar_url || '/default-avatar.png', 
->>>>>>> Stashed changes
         role: profile.role,
     };
 }
@@ -84,11 +53,7 @@ export default async function SettingsPage() {
     const profileData = await fetchUserProfile();
 
     if (!profileData) {
-<<<<<<< Updated upstream
-        return <div className="p-10">Please log in to view your settings.</div>;
-=======
         return <div className="p-10 text-red-500">Error: Your profile data could not be loaded.</div>;
->>>>>>> Stashed changes
     }
     
     const isProvider = profileData.role === 'provider';

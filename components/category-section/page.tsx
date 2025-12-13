@@ -5,11 +5,7 @@ import CategoryCard from '../category-card/page';
 interface Category {
     id: string; 
     name: string;
-<<<<<<< Updated upstream
-    snippet: string;
-=======
     is_featured: boolean;
->>>>>>> Stashed changes
 }
 
 export default function CategorySection({ categories }: { categories: Category[] }) {
@@ -28,11 +24,7 @@ export default function CategorySection({ categories }: { categories: Category[]
                         key={category.id}
                         id={category.id}
                         name={category.name}
-<<<<<<< Updated upstream
-                        snippet={category.snippet}
-=======
                         is_featured={category.is_featured}
->>>>>>> Stashed changes
                     />
                 ))}
             </div>

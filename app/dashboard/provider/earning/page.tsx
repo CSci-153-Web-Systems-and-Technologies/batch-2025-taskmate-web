@@ -1,10 +1,6 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-<<<<<<< Updated upstream
-import ProviderDashboardSidebar from '../../components/provider-sidebar/page'; 
-=======
 import ProviderDashboardSidebar from '../../components/provider-sidebar'; 
->>>>>>> Stashed changes
 import EarningMetrics from './components/earning-metrics'; 
 import EarningHistoryTable from './components/earning-history-table'; 
 
@@ -27,11 +23,8 @@ interface EarningData {
 
 async function fetchProviderEarning(): Promise<EarningData> {
     const supabase = await getServerSupabase();
-<<<<<<< Updated upstream
-=======
     if (!supabase) return { totalEarning: 0, pendingEarning: 0, commissionRate: 0, transactions: [] };
     
->>>>>>> Stashed changes
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
@@ -42,30 +35,6 @@ async function fetchProviderEarning(): Promise<EarningData> {
 
     const { data: rawTransactions, error } = await supabase
         .from('transactions')
-<<<<<<< Updated upstream
-        .select(`
-            id, amount_paid, payout_net, status, transaction_date,
-            booking:bookings!fk_booking_id (service:services!fk_service_id (title)),
-            customer:profiles!fk_customer_id (fullname)
-        `)
-        .eq('provider_id', user.id)
-        .order('transaction_date', { ascending: false });
-
-    if (error) {
-        console.error("Error fetching transactions:", error);
-        return { totalEarning: 0, pendingEarning: 0, commissionRate: 0, transactions: [] };
-    }
-
-    const transactions: Transaction[] = rawTransactions.map(t => ({
-        id: t.id,
-        customerName: t.customer?.fullname || 'Customer',
-        serviceTitle: t.booking?.service?.title || 'Service Missing',
-        date: new Date(t.transaction_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-        amount: t.amount_paid,
-        payoutAmount: t.payout_net,
-        status: t.status as Transaction['status'],
-    }));
-=======
         .select('id, amount_paid, payout_net, status, transaction_date, booking_id, customer_id') // Select IDs
         .eq('provider_id', user.id)
         .order('transaction_date', { ascending: false });
@@ -115,7 +84,6 @@ async function fetchProviderEarning(): Promise<EarningData> {
             status: t.status as Transaction['status'],
         };
     });
->>>>>>> Stashed changes
 
     const totalEarning = transactions
         .filter(t => t.status === 'Paid')

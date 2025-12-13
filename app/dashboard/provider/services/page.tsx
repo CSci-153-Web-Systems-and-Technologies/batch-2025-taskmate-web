@@ -1,10 +1,6 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-<<<<<<< Updated upstream
-import ProviderDashboardSidebar from '@/app/dashboard/components/provider-sidebar/page';
-=======
 import ProviderDashboardSidebar from '@/app/dashboard/components/provider-sidebar';
->>>>>>> Stashed changes
 import Link from 'next/link';
 import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
 
@@ -36,16 +32,6 @@ async function fetchProviderServices(): Promise<Service[]> {
         return [];
     }
 
-<<<<<<< Updated upstream
-    return serviceData.map(s => ({
-        id: s.id,
-        title: s.title,
-        category: s.category?.name || 'N/A',
-        price: s.price,
-        description: s.description,
-        isPublished: s.is_published,
-    })) as Service[];
-=======
     return serviceData.map(s => {
         // 🛠️ FIX: Handle 'category' safely (it might be an array or an object)
         const cat = s.category as any;
@@ -60,7 +46,6 @@ async function fetchProviderServices(): Promise<Service[]> {
             isPublished: s.is_published,
         };
     }) as Service[];
->>>>>>> Stashed changes
 }
 
 const formatCurrency = (amount: number) => `₱${amount.toFixed(0)}/hr`;
