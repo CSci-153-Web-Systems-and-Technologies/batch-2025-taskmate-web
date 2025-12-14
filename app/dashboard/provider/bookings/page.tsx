@@ -1,8 +1,8 @@
 import { getServerSupabase } from '@/lib/supabase/server';
 import React from 'react';
 import { redirect } from 'next/navigation';
-import AllBookingsTable from '@/app/dashboard/components/recent-bookings';
-import ProviderDashboardSidebar from '../../components/provider-sidebar'; 
+import AllBookingsTable from '@/app/dashboard/components/recent-bookings'; 
+import CustomerDashboardSidebar from '@/app/dashboard/components/sidebar'; 
 
 interface Booking {
     id: string;
@@ -14,7 +14,7 @@ interface Booking {
     amount: number;
 }
 
-async function fetchProviderBookings(): Promise<Booking[]> {
+async function fetchCustomerBookings(): Promise<Booking[]> {
     const supabase = await getServerSupabase();
     if (!supabase) return []; 
     
@@ -23,28 +23,28 @@ async function fetchProviderBookings(): Promise<Booking[]> {
 
     const { data: rawBookings, error } = await supabase
         .from('bookings')
-        .select('id, date, time, status, amount, service_id, customer_id')
-        .eq('provider_id', user.id) // Filter by Provider ID
+        .select('id, date, time, status, amount, service_id, provider_id')
+        .eq('customer_id', user.id)
         .order('date', { ascending: false });
 
     if (error || !rawBookings?.length) return [];
     
     const serviceIds = rawBookings.map(b => b.service_id);
-    const customerIds = rawBookings.map(b => b.customer_id);
+    const providerIds = rawBookings.map(b => b.provider_id);
 
     const { data: services } = await supabase.from('services').select('id, title').in('id', serviceIds);
-    const { data: profiles } = await supabase.from('profiles').select('id, fullname').in('id', customerIds);
+    const { data: profiles } = await supabase.from('profiles').select('id, fullname').in('id', providerIds);
 
     const serviceMap = new Map(services?.map(s => [s.id, s]) || []);
     const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
 
     return rawBookings.map(b => {
         const service = serviceMap.get(b.service_id);
-        const customer = profileMap.get(b.customer_id);
+        const provider = profileMap.get(b.provider_id);
 
         return {
             id: b.id,
-            customerName: customer?.fullname || 'Unknown Customer', 
+            customerName: provider?.fullname || 'Unknown Provider', 
             serviceTitle: service?.title || 'Service Unavailable',
             date: new Date(b.date).toLocaleDateString(),
             time: b.time,
@@ -54,61 +54,20 @@ async function fetchProviderBookings(): Promise<Booking[]> {
     });
 }
 
-async function fetchProviderBookings(): Promise<Booking[]> {
-    const supabase = await getServerSupabase();
-    if (!supabase) return []; 
-    
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) redirect('/auth/signin');
-
-    const { data: rawBookings, error } = await supabase
-        .from('bookings')
-        .select('id, date, time, status, amount, service_id, customer_id')
-        .eq('provider_id', user.id) // Filter by Provider ID
-        .order('date', { ascending: false });
-
-    if (error || !rawBookings?.length) return [];
-    
-    const serviceIds = rawBookings.map(b => b.service_id);
-    const customerIds = rawBookings.map(b => b.customer_id);
-
-    const { data: services } = await supabase.from('services').select('id, title').in('id', serviceIds);
-    const { data: profiles } = await supabase.from('profiles').select('id, fullname').in('id', customerIds);
-
-    const serviceMap = new Map(services?.map(s => [s.id, s]) || []);
-    const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
-
-    return rawBookings.map(b => {
-        const service = serviceMap.get(b.service_id);
-        const customer = profileMap.get(b.customer_id);
-
-        return {
-            id: b.id,
-            customerName: customer?.fullname || 'Unknown Customer', 
-            serviceTitle: service?.title || 'Service Unavailable',
-            date: new Date(b.date).toLocaleDateString(),
-            time: b.time,
-            status: b.status,
-            amount: b.amount,
-        };
-    });
->>>>>>> Stashed changes
-}
-
-export default async function ProviderBookingsPage() {
-    const bookings = await fetchProviderBookings();
+export default async function CustomerBookingsPage() {
+    const bookings = await fetchCustomerBookings();
 
     return (
         <div className="min-h-screen bg-muted flex">
-            <ProviderDashboardSidebar />
+            <CustomerDashboardSidebar />
             
             <main className="flex-1 p-8 ml-64"> 
-                <h1 className="text-3xl font-bold text-foreground mb-2">Incoming Requests</h1>
+                <h1 className="text-3xl font-bold text-foreground mb-2">My Bookings</h1>
                 <p className="text-muted-foreground mb-8">
-                    Manage your incoming jobs and appointments.
+                    Track the status of your service requests.
                 </p>
 
-                <AllBookingsTable bookings={bookings} isProviderView={true} /> 
+                <AllBookingsTable bookings={bookings} isProviderView={false} /> 
             </main>
         </div>
     );

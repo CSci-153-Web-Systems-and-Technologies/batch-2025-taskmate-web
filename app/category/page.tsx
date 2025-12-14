@@ -13,7 +13,7 @@ interface CategoryData {
 async function fetchAllCategories(): Promise<CategoryData[]> {
     const supabase = await getServerSupabase();
     
-<<<<<<< Updated upstream
+    // We query the 'category' table (singular) as established in your previous code
     const { data, error } = await supabase
         .from('categories') 
         .select('id, name') 

@@ -43,17 +43,6 @@ async function fetchUserRole(): Promise<{ id: string, role: 'customer' | 'provid
         redirect('/auth/signin'); 
     }
 
-async function fetchUserRole(): Promise<{ id: string, role: 'customer' | 'provider', fullName: string } | null> {
-    const supabase = await getServerSupabase();
-    if (!supabase) return null;
-    
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-        redirect('/auth/signin'); 
-    }
->>>>>>> Stashed changes
-
     const { data: profile } = await supabase
         .from('profiles')
         .select('fullname, role')
