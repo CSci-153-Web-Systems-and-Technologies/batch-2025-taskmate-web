@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
-import { Save, Loader2, DollarSign } from 'lucide-react';
+import { Save, Loader2, PhilippinePeso } from 'lucide-react';
 
 interface Category {
     id: number;
@@ -109,7 +109,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ categories, initialData }) =>
                 <label className="block">
                     <span className="text-sm font-medium text-muted-foreground mb-1 block">Price</span>
                     <div className="relative">
-                        <DollarSign className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+                        <PhilippinePeso className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
                         <input type="number" name="price" value={formData.price} onChange={handleChange} step="0.01" required className="w-full p-3 pl-10 border border-border rounded-lg bg-input focus:ring-2 focus:ring-primary"/>
                     </div>
                 </label>

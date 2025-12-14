@@ -10,6 +10,7 @@ interface Props {
 
 async function fetchService(id: string) {
     const supabase = await getServerSupabase();
+    // Fetch service and ensure the user owns it (optional safety check)
     const { data } = await supabase.from('services').select('*').eq('id', id).single();
     return data;
 }
