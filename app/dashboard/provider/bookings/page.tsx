@@ -21,16 +21,14 @@ async function fetchProviderBookings(): Promise<Booking[]> {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) redirect('/auth/signin');
 
-    // 1. Fetch Bookings for this Provider
     const { data: rawBookings, error } = await supabase
         .from('bookings')
         .select('id, date, time, status, amount, service_id, customer_id')
-        .eq('provider_id', user.id) // Filter by Provider ID
+        .eq('provider_id', user.id) 
         .order('date', { ascending: false });
 
     if (error || !rawBookings?.length) return [];
     
-    // 2. Fetch Related Data
     const serviceIds = rawBookings.map(b => b.service_id);
     const customerIds = rawBookings.map(b => b.customer_id);
 
@@ -40,7 +38,7 @@ async function fetchProviderBookings(): Promise<Booking[]> {
     const serviceMap = new Map(services?.map(s => [s.id, s]) || []);
     const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
 
-    // 3. Map Data
+
     return rawBookings.map(b => {
         const service = serviceMap.get(b.service_id);
         const customer = profileMap.get(b.customer_id);
@@ -70,7 +68,6 @@ export default async function ProviderBookingsPage() {
                     Manage your incoming jobs and appointments.
                 </p>
 
-                {/* isProviderView = true shows Accept/Reject buttons */}
                 <AllBookingsTable bookings={bookings} isProviderView={true} /> 
             </main>
         </div>

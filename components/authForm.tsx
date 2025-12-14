@@ -74,8 +74,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                     </div>
                 </div>
 
-                <p className="text-sm text-center max-w-xs text-primary-foreground/90">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <p className="text-sm text-center max-w-xs text-primary-foreground/90 leading-relaxed">
+                    Connect with verified local professionals for any project. 
+                    From home repairs to tech support, TaskMate makes hiring safe, simple, and fast.
                 </p>
             </div>
 

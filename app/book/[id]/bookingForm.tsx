@@ -7,7 +7,7 @@ import { createBooking } from './actions';
 
 interface BookingFormProps {
     serviceId: string;
-    providerId: string; // ✅ Added this
+    providerId: string;
     serviceTitle: string;
     hourlyRate: number;
     providerName: string;
@@ -30,7 +30,7 @@ export default function BookingForm({ serviceId, providerId, hourlyRate, provide
     const handleHire = async () => {
         if (!isLoggedIn) {
             const nextUrl = encodeURIComponent(`/book/${serviceId}`);
-            router.push(`/auth/signin?next=${nextUrl}`);
+            router.push(`/login?next=${nextUrl}`);
             return;
         }
 
@@ -83,7 +83,6 @@ export default function BookingForm({ serviceId, providerId, hourlyRate, provide
         <div className="bg-card border border-border rounded-xl shadow-lg p-6 md:p-8 sticky top-8">
             <h2 className="text-xl font-bold mb-6">Booking Details</h2>
 
-            {/* Date Selection */}
             <div className="mb-6">
                 <label className="block text-sm font-medium text-muted-foreground mb-3">
                     When do you need this?
@@ -96,12 +95,11 @@ export default function BookingForm({ serviceId, providerId, hourlyRate, provide
                         className="w-full pl-10 p-3 bg-muted/50 border border-border rounded-lg text-foreground focus:ring-2 focus:ring-primary outline-none transition"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        min={new Date().toISOString().split('T')[0]} // Disable past dates
+                        min={new Date().toISOString().split('T')[0]}
                     />
                 </div>
             </div>
 
-            {/* Hours Selection */}
             <div className="mb-6">
                 <label className="block text-sm font-medium text-muted-foreground mb-3">
                     Duration (Hours)
@@ -125,7 +123,6 @@ export default function BookingForm({ serviceId, providerId, hourlyRate, provide
                 </div>
             </div>
 
-            {/* Bill Summary */}
             <div className="space-y-3 py-4 border-t border-b border-border mb-6">
                 <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Hourly Rate</span>
@@ -141,14 +138,12 @@ export default function BookingForm({ serviceId, providerId, hourlyRate, provide
                 </div>
             </div>
 
-            {/* Error Message */}
             {error && (
                 <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-600 rounded-lg text-sm text-center">
                     {error}
                 </div>
             )}
 
-            {/* Hire Button */}
             <button 
                 onClick={handleHire}
                 disabled={loading}

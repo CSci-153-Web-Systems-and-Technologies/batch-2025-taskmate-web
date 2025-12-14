@@ -135,7 +135,7 @@ export default async function BookingPage(props: BookingPageProps) {
                     <div>
                         <BookingForm 
                             serviceId={data.service.id}
-                            providerId={data.provider.id} // ✅ Added this
+                            providerId={data.provider.id}
                             serviceTitle={data.service.title} 
                             hourlyRate={data.service.price} 
                             providerName={data.provider.fullname}
