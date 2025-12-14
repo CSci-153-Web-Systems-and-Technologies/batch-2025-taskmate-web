@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation'; 
 import { supabase } from '@/lib/supabase/client'; 
-import AuthForm from '@/components/auth-form/page'; 
+import AuthForm from '@/components/authForm'; 
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const handleAuthSubmission = async (formData: any, router: AppRouterInstance) => {
@@ -39,7 +39,7 @@ export default function SignUpPage() {
 
     const handleToggleView = (isRegister: boolean) => {
         if (!isRegister) {
-            router.push('/auth/signin'); 
+            router.push('/login'); 
         }
     };
 

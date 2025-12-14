@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import ProviderDashboardSidebar from '../../../components/provider-sidebar'; 
-import AddServiceForm from './components/add-service-form'; 
+import ProviderDashboardSidebar from '../../../_components/providerSidebar'; 
+import AddServiceForm from './_components/addServiceForm'; 
 
 interface Category {
     id: number;

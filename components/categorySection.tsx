@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import CategoryCard from '../category-card/page'; 
+import CategoryCard from './categoryCard'; 
 
 interface Category {
     id: string; 

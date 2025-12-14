@@ -43,10 +43,10 @@ export default async function Header() {
         if (!userData || !userData.isLoggedIn) {
             return (
                 <div className="space-x-4 flex items-center">
-                    <Link href="/auth/signin" className="text-sm font-medium text-foreground hover:text-primary">
+                    <Link href="/login" className="text-sm font-medium text-foreground hover:text-primary">
                         Log In
                     </Link>
-                    <Link href="/auth/signup" className="px-4 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition">
+                    <Link href="/signup" className="px-4 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition">
                         Sign Up
                     </Link>
                 </div>

@@ -179,7 +179,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, initialIsRegister, onTogg
                         {isRegister ? (
                             <span>
                                 Already have an account?{' '}
-                                <span onClick={() => handleToggle(false)} className="text-primary hover:underline cursor-pointer">Sign In</span>
+                                <span onClick={() => handleToggle(false)} className="text-primary hover:underline cursor-pointer">Log In</span>
                             </span>
                         ) : (
                             <span>

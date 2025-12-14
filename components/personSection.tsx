@@ -1,7 +1,6 @@
-// components/person-section/page.tsx
 "use client";
 import React, { useState } from 'react';
-import { Search } from 'lucide-react'; // Using lucide-react for the icon
+import { Search } from 'lucide-react';
 
 export default function PersonSection() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,7 +8,6 @@ export default function PersonSection() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Searching for:', searchTerm);
-    // Add navigation/Supabase search logic here
   };
 
   return (
@@ -21,7 +19,6 @@ export default function PersonSection() {
         Connect with trusted professionals for any task, or start earning by offering your expertise to thousands of customers.
       </p>
       
-      {/* Search Bar */}
       <form onSubmit={handleSearch} className="max-w-xl mx-auto">
         <div className="flex items-center bg-card border border-border rounded-xl shadow-md p-1">
           <Search className="h-5 w-5 text-muted-foreground ml-3" />

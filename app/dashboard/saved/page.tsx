@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import DashboardSidebar from '../components/sidebar';
-import SavedProvidersList from '../components/saved-providers-list'; 
+import DashboardSidebar from '../_components/sidebar';
+import SavedProvidersList from '../_components/savedProvidersList'; 
 
 interface ProviderData {
     id: string;
