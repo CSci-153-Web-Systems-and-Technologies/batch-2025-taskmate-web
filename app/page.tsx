@@ -3,8 +3,8 @@ import { getServerSupabase } from '@/lib/supabase/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, MapPin, CheckCircle } from 'lucide-react';
-import AuthStatus from '@/components/auth-status'; 
-import Header from '@/components/header/page';
+import AuthStatus from '@/components/authStatus'; 
+import Header from '@/components/header';
 
 interface Category {
     id: number;

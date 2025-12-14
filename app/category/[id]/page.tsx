@@ -2,7 +2,7 @@ import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { Star, MapPin } from 'lucide-react';
-import Header from '@/components/header/page';
+import Header from '@/components/header';
 
 interface ServiceListing {
     id: string;

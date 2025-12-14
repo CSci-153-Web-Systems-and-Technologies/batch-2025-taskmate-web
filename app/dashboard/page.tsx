@@ -1,10 +1,10 @@
 import { getServerSupabase } from '@/lib/supabase/server';
 import React from 'react';
 import { redirect } from 'next/navigation';
-import CustomerDashboardSidebar from './components/sidebar';
-import ProviderDashboardSidebar from './components/provider-sidebar';
-import RecentBookings from './components/recent-bookings';
-import DashboardMetrics from './components/metrics';
+import CustomerDashboardSidebar from './_components/sidebar';
+import ProviderDashboardSidebar from './_components/providerSidebar';
+import RecentBookings from './_components/recentBookings';
+import DashboardMetrics from './_components/metrics';
 
 
 interface Booking {

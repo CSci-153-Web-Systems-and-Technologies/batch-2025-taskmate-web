@@ -1,7 +1,7 @@
 import { getServerSupabase } from '@/lib/supabase/server';
 import React from 'react';
-import Header from '@/components/header/page';
-import CategoryCard from '@/components/category-card/page';
+import Header from '@/components/header';
+import CategoryCard from '@/components/categoryCard';
 import { LayoutGrid } from 'lucide-react';
 
 interface CategoryData {

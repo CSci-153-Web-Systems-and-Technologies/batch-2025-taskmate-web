@@ -1,8 +1,8 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import ProviderDashboardSidebar from '../../components/provider-sidebar'; 
-import EarningMetrics from './components/earning-metrics'; 
-import EarningHistoryTable from './components/earning-history-table'; 
+import ProviderDashboardSidebar from '../../_components/providerSidebar'; 
+import EarningMetrics from './_components/earningMetrics'; 
+import EarningHistoryTable from './_components/earningHistoryTable'; 
 
 interface Transaction {
     id: string;

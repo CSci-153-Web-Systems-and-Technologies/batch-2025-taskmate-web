@@ -1,6 +1,6 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import ProviderDashboardSidebar from '../../components/provider-sidebar'; 
+import ProviderDashboardSidebar from '../../_components/providerSidebar'; 
 import { Star } from 'lucide-react';
 
 interface Review {
