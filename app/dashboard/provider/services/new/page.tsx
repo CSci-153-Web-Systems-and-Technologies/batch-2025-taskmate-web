@@ -1,15 +1,7 @@
-<<<<<<< Updated upstream
-// app/dashboard/provider/services/new/page.tsx
-import React from 'react';
-import { getServerSupabase } from '@/lib/supabase/server';
-import ProviderDashboardSidebar from '../../../components/provider-sidebar/page'; 
-import AddServiceForm from './components/add-service-form'; // The main client component
-=======
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import ProviderDashboardSidebar from '../../../components/provider-sidebar'; 
 import AddServiceForm from './components/add-service-form'; 
->>>>>>> Stashed changes
 
 interface Category {
     id: number;

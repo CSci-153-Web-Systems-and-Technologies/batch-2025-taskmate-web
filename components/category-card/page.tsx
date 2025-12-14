@@ -1,39 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-<<<<<<< Updated upstream
-import { ArrowRight } from 'lucide-react'; 
-=======
 import { ArrowRight, Star } from 'lucide-react';
->>>>>>> Stashed changes
 
 interface CategoryCardProps {
     id: string;
     name: string;
-<<<<<<< Updated upstream
-    snippet: string;
-}
-
-export default function CategoryCard({ id, name, snippet }: CategoryCardProps) {
-    const IconPlaceholder = name[0]; 
-
-    const slug = name.toLowerCase().replace(/\s/g, '-'); 
-
-    return (
-        <div className="p-4 border border-border bg-card rounded-xl transition hover:shadow-lg">
-            <div className="flex items-center mb-3">
-                <span className="w-8 h-8 flex items-center justify-center text-lg font-bold bg-secondary text-secondary-foreground rounded-md mr-3">
-                    {IconPlaceholder}
-                </span>
-                <h4 className="text-md font-semibold text-foreground">{name}</h4>
-            </div>
-            <p className="text-sm text-muted-foreground mb-4 min-h-[40px]">{snippet}</p>
-            
-            <Link 
-                href={`/professionals/${slug}`} 
-                className="flex items-center text-primary text-sm font-medium hover:underline"
-            >
-                Explore <ArrowRight className="h-4 w-4 ml-1" />
-=======
     is_featured: boolean;
 }
 
@@ -69,7 +40,6 @@ export default function CategoryCard({ id, name, is_featured }: CategoryCardProp
                 className="flex items-center text-primary text-sm font-medium hover:underline group-hover:text-primary-foreground transition duration-150"
             >
                 Explore Services <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-0.5" />
->>>>>>> Stashed changes
             </Link>
         </div>
     );
