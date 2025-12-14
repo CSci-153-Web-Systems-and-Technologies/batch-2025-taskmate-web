@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import ProviderDashboardSidebar from '../../../_components/providerSidebar'; 
-import ServiceForm from './_components/addServiceForm'; 
+import ProviderDashboardSidebar from '@/app/dashboard/_components/providerSidebar'; 
+import ServiceForm from '../new/_components/addServiceForm'; 
 import { notFound } from 'next/navigation';
 
 interface Props {
@@ -34,7 +34,7 @@ export default async function EditServicePage(props: Props) {
             <ProviderDashboardSidebar />
             <main className="flex-1 p-8 ml-64"> 
                 <h1 className="text-3xl font-bold text-foreground mb-2">Edit Service</h1>
-                <p className="text-muted-foreground mb-8">Update your service details.</p>
+                <p className="text-muted-foreground mb-8">Update your service details below.</p>
                 
                 <ServiceForm categories={categories} initialData={service} />
             </main>

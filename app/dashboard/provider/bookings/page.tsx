@@ -19,7 +19,7 @@ async function fetchProviderBookings(): Promise<Booking[]> {
     if (!supabase) return []; 
     
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) redirect('/auth/signin');
+    if (!user) redirect('/login');
 
     const { data: rawBookings, error } = await supabase
         .from('bookings')
