@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
-import ProfileTab from './profile-tab';
-import SecurityTab from './security-tab';
+import ProfileTab from './profileTab';
+import SecurityTab from './securityTab';
 
 interface UserProfile {
     fullName: string;

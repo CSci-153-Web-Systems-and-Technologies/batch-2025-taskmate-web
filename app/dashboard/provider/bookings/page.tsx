@@ -1,8 +1,8 @@
 import { getServerSupabase } from '@/lib/supabase/server';
 import React from 'react';
 import { redirect } from 'next/navigation';
-import AllBookingsTable from '@/app/dashboard/components/recent-bookings'; 
-import CustomerDashboardSidebar from '@/app/dashboard/components/sidebar'; 
+import AllBookingsTable from '../../_components/recentBookings'; 
+import ProviderDashboardSidebar from '../../_components/providerSidebar'; 
 
 interface Booking {
     id: string;
@@ -14,37 +14,40 @@ interface Booking {
     amount: number;
 }
 
-async function fetchCustomerBookings(): Promise<Booking[]> {
+async function fetchProviderBookings(): Promise<Booking[]> {
     const supabase = await getServerSupabase();
     if (!supabase) return []; 
     
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) redirect('/auth/signin');
 
+    // 1. Fetch Bookings for this Provider
     const { data: rawBookings, error } = await supabase
         .from('bookings')
-        .select('id, date, time, status, amount, service_id, provider_id')
-        .eq('customer_id', user.id)
+        .select('id, date, time, status, amount, service_id, customer_id')
+        .eq('provider_id', user.id) // Filter by Provider ID
         .order('date', { ascending: false });
 
     if (error || !rawBookings?.length) return [];
     
+    // 2. Fetch Related Data
     const serviceIds = rawBookings.map(b => b.service_id);
-    const providerIds = rawBookings.map(b => b.provider_id);
+    const customerIds = rawBookings.map(b => b.customer_id);
 
     const { data: services } = await supabase.from('services').select('id, title').in('id', serviceIds);
-    const { data: profiles } = await supabase.from('profiles').select('id, fullname').in('id', providerIds);
+    const { data: profiles } = await supabase.from('profiles').select('id, fullname').in('id', customerIds);
 
     const serviceMap = new Map(services?.map(s => [s.id, s]) || []);
     const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
 
+    // 3. Map Data
     return rawBookings.map(b => {
         const service = serviceMap.get(b.service_id);
-        const provider = profileMap.get(b.provider_id);
+        const customer = profileMap.get(b.customer_id);
 
         return {
             id: b.id,
-            customerName: provider?.fullname || 'Unknown Provider', 
+            customerName: customer?.fullname || 'Unknown Customer', 
             serviceTitle: service?.title || 'Service Unavailable',
             date: new Date(b.date).toLocaleDateString(),
             time: b.time,
@@ -54,20 +57,21 @@ async function fetchCustomerBookings(): Promise<Booking[]> {
     });
 }
 
-export default async function CustomerBookingsPage() {
-    const bookings = await fetchCustomerBookings();
+export default async function ProviderBookingsPage() {
+    const bookings = await fetchProviderBookings();
 
     return (
         <div className="min-h-screen bg-muted flex">
-            <CustomerDashboardSidebar />
+            <ProviderDashboardSidebar />
             
             <main className="flex-1 p-8 ml-64"> 
-                <h1 className="text-3xl font-bold text-foreground mb-2">My Bookings</h1>
+                <h1 className="text-3xl font-bold text-foreground mb-2">Incoming Requests</h1>
                 <p className="text-muted-foreground mb-8">
-                    Track the status of your service requests.
+                    Manage your incoming jobs and appointments.
                 </p>
 
-                <AllBookingsTable bookings={bookings} isProviderView={false} /> 
+                {/* isProviderView = true shows Accept/Reject buttons */}
+                <AllBookingsTable bookings={bookings} isProviderView={true} /> 
             </main>
         </div>
     );

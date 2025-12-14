@@ -1,9 +1,9 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
-import CustomerDashboardSidebar from '../components/sidebar'; 
-import ProviderDashboardSidebar from '../components/provider-sidebar'; 
-import SettingsTabs from '../components/settings-tabs'; 
+import CustomerDashboardSidebar from '../_components/sidebar'; 
+import ProviderDashboardSidebar from '../_components/providerSidebar'; 
+import SettingsTabs from '../_components/settingsTabs'; 
 
 interface UserProfile {
     fullName: string;
@@ -25,7 +25,7 @@ async function fetchUserProfile(): Promise<UserProfile | null> {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-        redirect('/auth/signin');
+        redirect('/login');
     }
 
     const { data: profile } = await supabase

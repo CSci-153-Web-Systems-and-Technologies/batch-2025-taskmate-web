@@ -1,6 +1,6 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import ProviderDashboardSidebar from '@/app/dashboard/components/provider-sidebar';
+import ProviderDashboardSidebar from '@/app/dashboard/_components/providerSidebar';
 import Link from 'next/link';
 import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
 

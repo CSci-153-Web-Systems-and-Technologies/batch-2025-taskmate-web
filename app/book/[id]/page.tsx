@@ -3,8 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, MapPin, Star } from 'lucide-react';
-import Header from '@/components/header/page'; 
-import BookingForm from './booking-form'; 
+import Header from '@/components/header'; 
+import BookingForm from './bookingForm'; 
 
 interface BookingPageProps {
     params: Promise<{

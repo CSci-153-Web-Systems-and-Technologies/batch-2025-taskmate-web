@@ -1,8 +1,8 @@
 import { getServerSupabase } from '@/lib/supabase/server';
 import React from 'react';
 import { redirect } from 'next/navigation';
-import AllBookingsTable from '@/app/dashboard/components/recent-bookings'; 
-import CustomerDashboardSidebar from '../components/sidebar'; 
+import AllBookingsTable from '@/app/dashboard/_components/recentBookings'; 
+import CustomerDashboardSidebar from '../_components/sidebar'; 
 
 interface Booking {
     id: string;

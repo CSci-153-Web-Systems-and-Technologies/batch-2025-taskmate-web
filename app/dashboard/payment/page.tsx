@@ -1,7 +1,7 @@
 import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
-import DashboardSidebar from '../components/sidebar';
-import PaymentHistoryList from '../components/payment-history-list';
+import DashboardSidebar from '../_components/sidebar';
+import PaymentHistoryList from '../_components/paymentHistoryList';
 
 interface TransactionData {
     id: string;
