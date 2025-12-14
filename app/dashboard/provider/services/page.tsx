@@ -2,7 +2,8 @@ import React from 'react';
 import { getServerSupabase } from '@/lib/supabase/server';
 import ProviderDashboardSidebar from '@/app/dashboard/_components/providerSidebar';
 import Link from 'next/link';
-import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
+import ServiceActions from './new/_components/serviceActions'; 
 
 interface Service {
     id: string;
@@ -33,7 +34,6 @@ async function fetchProviderServices(): Promise<Service[]> {
     }
 
     return serviceData.map(s => {
-        // 🛠️ FIX: Handle 'category' safely (it might be an array or an object)
         const cat = s.category as any;
         const categoryName = Array.isArray(cat) ? cat[0]?.name : cat?.name;
 
@@ -79,7 +79,6 @@ export default async function MyServicesPage() {
                     ) : (
                         services.map(service => (
                             <div key={service.id} className="bg-card p-5 rounded-xl shadow-md border border-border flex justify-between items-center">
-                                
                                 <div>
                                     <h2 className="text-xl font-semibold text-foreground">{service.title}</h2>
                                     <p className="text-sm text-muted-foreground">Category: {service.category} | {formatCurrency(service.price)}</p>
@@ -90,14 +89,7 @@ export default async function MyServicesPage() {
                                     </span>
                                 </div>
 
-                                <div className="flex space-x-3">
-                                    <Link href={`/dashboard/provider/services/${service.id}`} className="p-2 text-primary hover:text-primary/80 transition rounded-full hover:bg-muted">
-                                        <Edit2 className="h-5 w-5" />
-                                    </Link>
-                                    <button className="p-2 text-red-500 hover:text-red-700 transition rounded-full hover:bg-muted">
-                                        <Trash2 className="h-5 w-5" />
-                                    </button>
-                                </div>
+                                <ServiceActions serviceId={service.id} />
                             </div>
                         ))
                     )}
